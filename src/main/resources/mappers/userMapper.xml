@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastcampus.boardserver.mapper.UserProfileMapper">
+    <select id="getUserProfile" resultType="com.fastcampus.boardserver.dto.UserDTO">
+        SELECT userId
+             , password
+             , nickName
+             , isAdmin
+             , createTime
+             , isWithDraw
+             , status
+             , updateTime
+          FROM user
+         WHERE userId = #{id}
+    </select>
+
+    <insert id="register" parameterType="com.fastcampus.boardserver.dto.UserDTO">
+        INSERT INTO
+          user (
+                 userId
+               , password
+               , nickName
+               , isWithDraw
+               , status
+               , isAdmin
+               )
+        VALUES (
+                 #{userId}
+               , #{password}
+               , #{nickName}
+               , #{isWithDraw}
+               , #{status}
+               , #{isAdmin}
+               )
+    </insert>
+
+    <update id="updateUserProfile" parameterType="com.fastcampus.boardserver.dto.UserDTO">
+        UPDATE user
+        SET password=#{password},
+        nickName=#{nickName},
+        isWithDraw=#{isWithDraw},
+        status=#{status}
+        WHERE userId=#{userId}
+    </update>
+
+    <delete id="deleteUserProfile">
+        DELETE
+        FROM user
+        WHERE userID=#{id}
+    </delete>
+
+    <select id="findByIdAndPassword" resultType="com.fastcampus.boardserver.dto.UserDTO">
+        SELECT id,
+        userId,
+        password,
+        nickName,
+        createTime,
+        isWithDraw,
+        status
+        FROM user
+        WHERE userId=#{id}
+        AND password=#{password}
+        AND status != 'DELETE'
+    </select>
+
+    <select id="idCheck" resultType="int">
+        SELECT COUNT(id)
+        FROM user
+        WHERE userId = #{id}
+    </select>
+    <update id="updatePassword" parameterType="com.fastcampus.boardserver.dto.UserDTO">
+        UPDATE user
+        SET password = #{password}
+        WHERE userId = #{userId}
+    </update>
+</mapper>
