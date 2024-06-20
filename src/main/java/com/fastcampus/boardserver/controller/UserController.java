@@ -1,5 +1,6 @@
 package com.fastcampus.boardserver.controller;
 
+import com.fastcampus.boardserver.aop.LoginCheck;
 import com.fastcampus.boardserver.dto.UserDTO;
 import com.fastcampus.boardserver.dto.request.UserDeleteId;
 import com.fastcampus.boardserver.dto.request.UserLoginRequest;
@@ -80,11 +81,13 @@ public class UserController {
     }
 
     @PatchMapping("password")
-    public ResponseEntity<LoginResponse> updateUserPassword(@RequestBody UserUpdatePasswordRequest passwordRequest
+    @LoginCheck(type = LoginCheck.UserType.USER)
+    public ResponseEntity<LoginResponse> updateUserPassword(String accountId, @RequestBody UserUpdatePasswordRequest passwordRequest
             , HttpSession session){
         ResponseEntity<LoginResponse> responseEntity = null;
         LoginResponse loginResponse = null;
-        String id = SessionUtil.getLoginMemberId(session);
+        //String id = SessionUtil.getLoginMemberId(session);
+        String id = accountId;
         String beforePassword = passwordRequest.getBeforePassword();
         String afterPassword = passwordRequest.getAfterPassword();
 
