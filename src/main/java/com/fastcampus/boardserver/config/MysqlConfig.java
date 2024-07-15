@@ -13,13 +13,13 @@ import javax.sql.DataSource;
 @Configuration
 @MapperScan(basePackages = "com.fastcampus.boardserver.mapper")
 public class MysqlConfig {
-
+    @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception{
         final SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource);
 
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        sessionFactoryBean.setMapperLocations(resolver.getResources("classpath:mappers/*.xml"));
+        sessionFactoryBean.setMapperLocations(resolver.getResources("classpath:/mappers/*.xml"));
 
         Resource myBatisConfig = new PathMatchingResourcePatternResolver().getResource("classpath:mybatis-config.xml");
         sessionFactoryBean.setConfigLocation(myBatisConfig);
