@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping(value = "/posts")
 @Log4j2
 public class PostController {
 

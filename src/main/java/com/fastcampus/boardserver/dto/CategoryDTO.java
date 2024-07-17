@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 public class CategoryDTO {
     public enum SortStatus{
-        CATEGORY, NEWEST, OLDEST
+        CATEGORY, NEWEST, OLDEST, HIGHPRICE, LOWPRICE, GRADE
     }
 
     private int id;
